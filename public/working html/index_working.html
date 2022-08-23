@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISMAREED - BYU's Dating Program</title>
+</head>
+
+<body>
+
+    <!--this links the code here to the pre-coded stuff from the website in the assignment-->
+    <link rel="stylesheet" type="text/css" href="dist/loading-bar.css" />
+    <script type="text/javascript" src="dist/loading-bar.js"></script>
+
+    <script>
+        function clickMe() {
+            //variables, some hard coded
+            var lovePhrase = document.getElementById("lovePhrase").value;
+            var firstName = document.getElementById("person1").value;
+            var secondName = document.getElementById("person2").value;
+            var combinedName = "";
+            var lowerName = "";
+            var noSpaceName = "";
+            var lowerLovePhrase = "";
+            var noSpaceLovePhrase = "";
+            var iLoveCount = 0;
+
+            //making the two names universal
+            combinedName = firstName + secondName;
+            lowerName = combinedName.toLowerCase();
+            noSpaceName = lowerName.replace(/ /g, "");
+
+            //making the love phrase universal
+            lowerLovePhrase = lovePhrase.toLowerCase();
+            noSpaceLovePhrase = lowerLovePhrase.replace(/ /g, "");
+
+            //for loop to compare each of the letters in the combined names
+            for (i = 0; i < noSpaceName.length; i++) {
+                var noSpaceNameVal = noSpaceName.slice(i, i + 1);
+                //for loop inside to compare each name value to the love phrase value
+                for (x = 0; x < noSpaceLovePhrase.length; x++) {
+                    var noSpaceLovePhraseVal = noSpaceLovePhrase.slice(x, x + 1);
+                    if (noSpaceNameVal === noSpaceLovePhraseVal) {
+                        iLoveCount += 1;
+                    }
+                }
+            }
+
+
+            //Tyler's code
+            //debugger;
+            var iFactor = 1;
+            var iPower;
+            var output = "";
+            var countNotChecked = 0;
+            //Communicate often Checked/NotChecked
+            if (document.getElementById("attribute1").checked === true) {
+                iFactor = iFactor + .25;
+            }
+            else {
+                countNotChecked = countNotChecked + 1;
+            }
+            //Selfless Checked/NotChecked
+            if (document.getElementById("attribute2").checked === true) {
+                iFactor = iFactor + .25;
+            }
+            else {
+                countNotChecked = countNotChecked + 1;
+            }
+            //Serve Each Other Checked/NotChecked
+            if (document.getElementById("attribute3").checked === true) {
+                iFactor = iFactor + .25;
+            }
+            else {
+                countNotChecked = countNotChecked + 1;
+            }
+            //Best Friend Checked/NotChecked
+            if (document.getElementById("attribute4").checked === true) {
+                iFactor = iFactor + .25;
+            }
+            else {
+                countNotChecked = countNotChecked + 1;
+            }
+            //Remember God Checked/NotChecked
+            if (document.getElementById("attribute5").checked === true) {
+                iFactor = iFactor + .5;
+            }
+            else {
+                countNotChecked = countNotChecked + 1;
+            }
+            //test to see if boxes that are not checked are being read as such
+            //alert(countNotChecked);
+
+            //I used Emma's "noSpaceLovePhrase" instead of sLovePhrase...
+            iPower = Math.ceil(((iLoveCount / noSpaceLovePhrase.length) * 22) * iFactor);
+
+            //test for iPower
+            //alert(iPower);
+
+            /* construct manually */
+            var bar1 = new ldBar("#myItem1");
+            /* ldBar stored in the element */
+            var bar2 = document.getElementById('myItem1').ldBar;
+
+            bar1.set(iPower);
+
+            loveMessage(iPower);
+
+            
+        }
+
+        function loveMessage(percent)
+        {
+            var output = "";
+
+            if (percent >= 100) {
+                output = "Perfect Marriage!";
+            }
+            else if (percent >= 85) {
+                output = "Get Married!"
+            }
+            else if (percent >= 70) {
+                output = "It might work"
+            }
+            else {
+                output = "Keep looking!"
+            }
+            
+            document.getElementById("Kronk").innerHTML = output;
+        }
+
+        //the reset button fuction
+        function resetFunction() {
+            
+        //clearing the userwritten inputs
+        document.getElementById("lovePhrase").value = "";
+        document.getElementById("person1").value = "";
+        document.getElementById("person2").value = "";
+
+        //clearing the check boxes
+        document.getElementById("attribute1").checked = false;
+        document.getElementById("attribute2").checked = false;
+        document.getElementById("attribute3").checked = false;
+        document.getElementById("attribute4").checked = false;
+        document.getElementById("attribute5").checked = false;
+
+        //reseting the loading bar
+        /* construct manually */
+        var bar1 = new ldBar("#myItem1");
+            /* ldBar stored in the element */
+            var bar2 = document.getElementById('myItem1').ldBar;
+
+            bar1.set(0);
+        //resetting the phrase
+        document.getElementById("Kronk").innerHTML = "";
+
+        //giving focus to the Love Phrase Section
+        document.getElementById("lovePhrase").focus();
+
+        }
+    </script>
+
+
+    <h1>Welcome to the BYU Information System's Dating Site</h1>
+    <br>
+    <form>
+        <label for="lovePhrase">What is the love phrase:</label>
+        <input type="text" name="lovePhrase" id="lovePhrase">
+        <br><br>
+        <label for="person1">Enter the first person's first and last name:</label>
+        <input type="text" name="person1" id="person1">
+        <br><br>
+        <label for="person2">Enter the second person's first and last name:</label>
+        <input type="text" name="person2" id="person2">
+        <br><br>
+        <input type="checkbox" name="attribute1" id="attribute1">
+        <label for="attribute1">We will communicate often</label>
+        <br><br>
+        <input type="checkbox" name="attribute2" id="attribute2">
+        <label for="attribute2">We will not be selfish</label>
+        <br><br>
+        <input type="checkbox" name="attribute3" id="attribute3">
+        <label for="attribute3">We will serve each other</label>
+        <br><br>
+        <input type="checkbox" name="attribute4" id="attribute4">
+        <label for="attribute4">My spouse will be my best friend</label>
+        <br><br>
+        <input type="checkbox" name="attribute5" id="attribute5">
+        <label for="attribute5">We will remember God</label>
+    </form>
+    <br><br>
+    <button type="submit" onclick="clickMe()">Click Me</button>
+    <button type="reset" onclick="resetFunction()">Reset</button>
+
+    <!--loading bar-->
+    <br><br>
+    <div id="myItem1" class="ldBar label-center" data-value="0" data-preset="bubble"></div><br>
+    
+    <div class=LoveHeart>
+        <p id="output"></p>
+    </div>
+
+    <!--Text that shows up underneath loading bar-->
+    <p id="Kronk"></p>
+
+    <!--some CSS styling for the loading bar, but put inside the div tag, rather than a CSS file-->
+    <style type="text/css">
+        .ldBar path.mainline {
+            stroke-width: 6;
+            stroke: rgb(139, 4, 4);
+            /*I changed the style to red. To change the color, 
+            you hover your cursor over the color box, and pick manually.
+            you can also change the opacity, which is the first bar to the 
+            right when you hover over the same area.*/
+            stroke-linecap: round;
+        }
+
+        /*this is the faint bar that shows "underneath" the current progress 
+        bar/stroke*/
+        .ldBar path.baseline {
+            stroke-width: 9;
+            stroke: rgba(139, 4, 4, 0.459);
+            /*you'll notice (if you hover over the color) that I made 
+            its opacity low so you could see the current progress bar*/
+            stroke-linecap: round;
+        }
+
+        /*this is the code to adjust the style of the label in the middle
+        of the progress circle*/
+        .ldBar-label {
+            color: rgb(139, 4, 4);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            /*change the font as you like*/
+            font-size: 1.5em;
+            /*used to be 2.5*/
+            font-weight: 900;
+        }
+
+        div.LoveHeart {
+            height: 5em;
+            position: relative
+        }
+
+        div.LoveHeart p {
+            margin: 0;
+            background: white;
+            color: red;
+            font-weight: bold;
+            font-size: 150%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%)
+        }
+    </style>
+
+<!--this is the heart!!
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+ <svg
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ version="1.1" height="315" width="342" >
+  <defs>
+   <style type="text/css"><![CDATA[.outline { stroke:none; stroke-width:0 }]]></style>
+    <g id="heart">
+    <path 
+     d="M0 200 v-200 h200 
+     a100,100 90 0,1 0,200
+     a100,100 90 0,1 -200,0
+     z" />
+   </g>
+  </defs>
+  <desc>
+    a nearly perfect heart
+ 	 made of two arcs and a right angle
+  </desc>
+   <use xlink:href="#heart" class="outline " fill="red" />
+ </svg>
+-->
+
+</body>
+
+</html>
+
+
+<!-- <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+ 2 <svg
+ 3 xmlns="http://www.w3.org/2000/svg"
+ 4 xmlns:xlink="http://www.w3.org/1999/xlink"
+ 5 version="1.1" height="315" width="342" >
+ 6  <defs>
+ 7   <style type="text/css"><![CDATA[
+ 8     .outline { stroke:none; stroke-width:0 }
+ 9   ]]></style>
+10    <g id="heart">
+11    <path 
+12     d="M0 200 v-200 h200 
+13     a100,100 90 0,1 0,200
+14     a100,100 90 0,1 -200,0
+15     z" />
+16   </g>
+17  </defs>
+18  <desc>
+19    a nearly perfect heart
+20 	 made of two arcs and a right angle
+21  </desc>
+22   <use xlink:href="#heart" class="outline " fill="red" />
+23 </svg>-->

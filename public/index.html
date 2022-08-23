@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>IS 303 - HW 7</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+
+    <!--this links the code for the progress bar-->
+    <link rel="stylesheet" type="text/css" href="dist/loading-bar.css" />
+    <script type="text/javascript" src="dist/loading-bar.js"></script>
+
+    <!--JS code for the form-->
+    <script>
+        //function that runs the comparisons, edits the strings, and sees if you should tie the knot ;)
+        //SECTION THAT DEALS WITH THE INPUTS
+        function clickMe() {
+            //variables, some hard coded
+            var lovePhrase = document.getElementById("lovePhrase").value;
+            var firstName = document.getElementById("person1").value;
+            var secondName = document.getElementById("person2").value;
+            var combinedName = "";
+            var lowerName = "";
+            var noSpaceName = "";
+            var lowerLovePhrase = "";
+            var noSpaceLovePhrase = "";
+            var iLoveCount = 0;
+
+            //making the two names universal
+            combinedName = firstName + secondName;
+            lowerName = combinedName.toLowerCase();
+            noSpaceName = lowerName.replace(/ /g, "");
+
+            //making the love phrase universal
+            lowerLovePhrase = lovePhrase.toLowerCase();
+            noSpaceLovePhrase = lowerLovePhrase.replace(/ /g, "");
+
+            //for loop to compare each of the letters in the combined names
+            for (i = 0; i < noSpaceName.length; i++) {
+                var noSpaceNameVal = noSpaceName.slice(i, i + 1);
+                //for loop inside to compare each name value to the love phrase value
+                for (x = 0; x < noSpaceLovePhrase.length; x++) {
+                    var noSpaceLovePhraseVal = noSpaceLovePhrase.slice(x, x + 1);
+                    if (noSpaceNameVal === noSpaceLovePhraseVal) {
+                        iLoveCount += 1;
+                    }
+                }
+            }
+
+            //SECTION THAT DEALS WITH THE CHECKBOXES
+            //debugger;
+            var iFactor = 1;
+            var iPower;
+            var output = "";
+            var countNotChecked = 0; //We created this var to check to see if the checkboxes were working.
+            //Communicate often Checked/NotChecked
+            if (document.getElementById("attribute1").checked === true) {
+                iFactor = iFactor + .25;
+            }
+            else {
+                countNotChecked = countNotChecked + 1;
+            }
+            //Selfless Checked/NotChecked
+            if (document.getElementById("attribute2").checked === true) {
+                iFactor = iFactor + .25;
+            }
+            else {
+                countNotChecked = countNotChecked + 1;
+            }
+            //Serve Each Other Checked/NotChecked
+            if (document.getElementById("attribute3").checked === true) {
+                iFactor = iFactor + .25;
+            }
+            else {
+                countNotChecked = countNotChecked + 1;
+            }
+            //Best Friend Checked/NotChecked
+            if (document.getElementById("attribute4").checked === true) {
+                iFactor = iFactor + .25;
+            }
+            else {
+                countNotChecked = countNotChecked + 1;
+            }
+            //Remember God Checked/NotChecked
+            if (document.getElementById("attribute5").checked === true) {
+                iFactor = iFactor + .5;
+            }
+            else {
+                countNotChecked = countNotChecked + 1;
+            }
+            //test to see if boxes that are not checked are being read as such
+            //alert(countNotChecked);
+
+            //DETERMINES iPower, final number displayed in progress bar
+            iPower = Math.ceil(((iLoveCount / noSpaceLovePhrase.length) * 22) * iFactor);
+
+            //test for iPower
+            //alert(iPower);
+            
+            // JS behind Progress Bar vvvvv 
+            
+            /* Creates progress bar object, called ldBar */
+            var bar1 = new ldBar("#heart");
+            /* ldBar stored in the element heart*/
+            var bar2 = document.getElementById('heart').ldBar;
+
+            bar1.set(iPower);
+
+            loveMessage(iPower);
+        }
+
+        //function that displays a message underneath the progress bar, based on our compatibility matrix.
+        function loveMessage(percent) {
+            var output = "";
+
+            if (percent >= 100) {
+                output = "Perfect Marriage!";
+            }
+            else if (percent >= 85) {
+                output = "Get Married!"
+            }
+            else if (percent >= 70) {
+                output = "It might work"
+            }
+            else {
+                output = "Keep looking!"
+            }
+
+            document.getElementById("verdict").innerHTML = output;
+        }
+
+        //the reset button fuction
+        function resetFunction() {
+
+            //clearing the userwritten inputs
+            document.getElementById("lovePhrase").value = "";
+            document.getElementById("person1").value = "";
+            document.getElementById("person2").value = "";
+
+            //clearing the check boxes
+            document.getElementById("attribute1").checked = false;
+            document.getElementById("attribute2").checked = false;
+            document.getElementById("attribute3").checked = false;
+            document.getElementById("attribute4").checked = false;
+            document.getElementById("attribute5").checked = false;
+
+            //reseting the progress bar
+            var bar1 = new ldBar("#heart");
+            /* ldBar stored in the element */
+            var bar2 = document.getElementById('heart').ldBar;
+
+            bar1.set(0);
+            //resetting the phrase
+            document.getElementById("verdict").innerHTML = "";
+
+            //giving focus to the Love Phrase Section
+            document.getElementById("lovePhrase").focus();
+
+        }
+    </script>
+
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container">
+            <div class="masthead-subheading">Welcome To the BYU Information System's Dating Site!</div>
+            <div class="masthead-heading text-uppercase">Is that special someone <em>the</em> right one?</div>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#datingform">Take the Survey</a>
+        </div>
+    </header>
+
+
+    <!-- DATING SURVEY -->
+    
+    
+    <section class="page-section" id="datingform">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Survey</h2>
+                <h3 class="section-subheading text-muted">Fill out the form below and we will let you know if this
+                    relationship will work out</h3>
+                <form>
+                    <label for="lovePhrase">What is the love phrase:</label>
+                    <input type="text" name="lovePhrase" id="lovePhrase">
+                    <br><br>
+                    <label for="person1">Enter the first person's first and last name:</label>
+                    <input type="text" name="person1" id="person1">
+                    <br><br>
+                    <label for="person2">Enter the second person's first and last name:</label>
+                    <input type="text" name="person2" id="person2">
+                    <br><br>
+                    <input type="checkbox" name="attribute1" id="attribute1">
+                    <label for="attribute1">We will communicate often</label>
+                    <br><br>
+                    <input type="checkbox" name="attribute2" id="attribute2">
+                    <label for="attribute2">We will not be selfish</label>
+                    <br><br>
+                    <input type="checkbox" name="attribute3" id="attribute3">
+                    <label for="attribute3">We will serve each other</label>
+                    <br><br>
+                    <input type="checkbox" name="attribute4" id="attribute4">
+                    <label for="attribute4">My spouse will be my best friend</label>
+                    <br><br>
+                    <input type="checkbox" name="attribute5" id="attribute5">
+                    <label for="attribute5">We will remember God</label>
+                </form>
+                <br><br>
+                <button type="submit"
+                    style="background-color: red; color: white; border-radius: 25px; padding: 5px; padding-right: 10px; padding-left: 10px; margin-right: 25px;"
+                    onclick="clickMe()">Click
+                    Me</button>
+                <button type="reset"
+                    style="background-color: red; color: white; border-radius: 25px; padding: 5px; padding-right: 10px; padding-left: 10px;"
+                    onclick="resetFunction()">Reset</button>
+  
+                <!--SECTION THAT DEALS WITH THE PROGRESS BAR/HEART-->                  ​
+                
+                <div class="LoveHeart">
+                    <p id="output"></p>
+
+
+
+                    <!--PROGRESS BAR/HEART-->
+                    <br><br>
+                    <div id="heart" class="ldBar label-center" data-type="fill" data-path="M90.5,23.2c0-12.5-10.2-22.7-22.7-22.7
+                    c-13.6,0-20.9,8.6-22.3,13.8C44.3,8.9,
+                    35.1,0.5,23.2,0.5C10.7,0.5,0.5,10.7,
+                    0.5,23.2c0,22.2,36.5,45.3,45,55.9
+                    C53.5,67.3,90.5,46.3,90.5,23.2z" data-fill="#FF0000"></div>
+
+                    <!--
+                        This was test code.
+                        <div id="myItem1" class="ldBar label-center" data-value="0" data-preset="bubble"></div><br>
+                    -->
+
+
+
+                    <!--Text that shows up underneath loading bar-->
+                    <p id="verdict"></p>
+
+                    <!--some CSS styling for the progress bar, but put inside the div tag, rather than a CSS file-->
+                    <style type="text/css">
+                         /*this is the code to adjust the style of the label in the middle
+                        of the progress circle*/
+                        .ldBar-label {
+                            color: rgb(139, 4, 4);
+                            font-family: Verdana, Geneva, Tahoma, sans-serif;
+                            font-size: 1.25em;
+                            font-weight: 900;
+                        }
+
+                        /* TEST CODE FOR PROGRESS BAR
+                        .ldBar path.mainline {
+                            stroke-width: 6;
+                            stroke: rgb(139, 4, 4);
+                            stroke-linecap: round;
+                        }
+                        .ldBar path.baseline {
+                            stroke-width: 9;
+                            stroke: rgba(139, 4, 4, 0.459);
+                            stroke-linecap: round;
+                        }*/
+
+                         
+                        /*THIS EDITS THE OUTPUT STATEMENT*/
+                        div.LoveHeart {
+                            height: 5em;
+                            position: relative
+                        }
+                        
+                        div.LoveHeart p {
+                            margin: 0;
+                            background: white;
+                            color: red;
+                            font-weight: bold;
+                            font-size: 150%;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            margin-right: -50%;
+                            transform: translate(-50%, -50%)
+                        }
+                    </style>
+                </div>
+    </section>
+
+
+    <!-- Portfolio Grid-->
+    <section class="page-section bg-light" id="portfolio">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Make Your Move</h2>
+                <h3 class="section-subheading text-muted">You got the results, now is the time to act!</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="portfolio-item">
+                        <a class="portfolio-link" href="https://wilsondiamonds.com/" target="_blank">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="assets/img/portfolio/wedding-ring.jpg" alt="" />
+                        </a>
+                        <div class="portfolio-caption">
+                            <div class="portfolio-caption-heading">Need The Ring?</div>
+                            <div class="portfolio-caption-subheading text-muted">Shop Here</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="portfolio-item">
+                        <a class="portfolio-link" href="https://www.instagram.com/ideastash/" target="_blank">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="assets/img/portfolio/date-ideas.jpg" alt="" />
+                        </a>
+                        <div class="portfolio-caption">
+                            <div class="portfolio-caption-heading">Need Date Ideas?</div>
+                            <div class="portfolio-caption-subheading text-muted">Find Some Here</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="portfolio-item">
+                        <a class="portfolio-link" href="https://apps.apple.com/us/app/mutual-lds-dating/id1084591612"
+                            target="_blank">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="assets/img/portfolio/mutual-logo.png" alt="" />
+                        </a>
+                        <div class="portfolio-caption">
+                            <div class="portfolio-caption-heading">Need a New Fling?</div>
+                            <div class="portfolio-caption-subheading text-muted">Look Here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Team-->
+    <section class="page-section bg-light" id="team">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">The Amazing Team Members of Group 2</h2>
+                <h3 class="section-subheading text-muted">Part of IS 303 Section 001 of Brigham Young University</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="assets/img/team/layton-barney.jpg" alt="" />
+                        <h4>Layton Barney</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="assets/img/team/tyler-curtis.jpg" alt="" />
+                        <h4>Tyler Curtis</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="assets/img/team/emma-gardner.png" alt="" />
+                        <h4>Emma Gardner</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="assets/img/team/jess-hansen.jpg" alt="" />
+                        <h4>Jess Hansen</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="assets/img/team/cayden-obrien.png" alt="" />
+                        <h4>Cayden O'Brien</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <p class="large text-muted">Huge shoutout to our amazing Professor, Rob Hilton, and the TA's for all
+                        of their help and support with our programming.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer-->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-left">Copyright © IS 303 - Team Two 2020</div>
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <a class="btn btn-dark btn-social mx-2"
+                        href="https://www.instagram.com/brighamyounguniversity/?hl=en" target="_blank"><i
+                            class="fab fa-instagram"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="https://www.facebook.com/BYU/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2"
+                        href="https://www.linkedin.com/school/brigham-young-university/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- Contact form JS-->
+    <script src="assets/mail/jqBootstrapValidation.js"></script>
+    <script src="assets/mail/contact_me.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+</body>
+
+
+</html>

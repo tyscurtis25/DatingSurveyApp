@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loading-bar</title>
+</head>
+
+<body>
+
+    <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">How much are you feelin' the love?</h1>
+    <button type="button" id="b1" onclick="loveMeter1()">meh</button>
+    <button type="button" id="b2" onclick="loveMeter2()">It's there</button>
+    <button type="button" id="b3" onclick="loveMeter3()">Oh, I can feel it.</button>
+    <button type="button" id="b4" onclick="resetMeter()">Reset</button>
+
+    <!--I just put this here, it's from the assignment specs. It does nothing yet.-->
+    <div class=LoveHeart>
+        <p id="output"></p>
+    </div>
+
+    <!--I took a lot of the stuff from the website, and edited it to show you where things were.
+    The task that I don't understand yet is how to make it heart-shaped. Anyway, take a look, see  
+    what you like, change what you like.-->
+
+    <!--this links the code here to the pre-coded stuff from the website in the assignment-->
+    <link rel="stylesheet" type="text/css" href="dist/loading-bar.css" />
+    <script type="text/javascript" src="dist/loading-bar.js"></script>
+
+    <!--OG style -- i.e. straight line
+    <div class="ldBar" data-value="50"><br><br>
+    </div>-->
+
+    <!--circle loading bar-->
+    <div id="myItem1" class="ldBar label-center" data-value="0" data-preset="bubble"></div>
+    <script>
+
+        //meh
+        function loveMeter1() {
+            /* construct manually */
+            var bar1 = new ldBar("#myItem1");
+            /* ldBar stored in the element */
+            var bar2 = document.getElementById('myItem1').ldBar;
+
+            bar1.set(15);
+
+            document.getElementById("Kronk").innerHTML = "";
+        }
+
+        //It's there
+        function loveMeter2() {
+            /* construct manually */
+            var bar1 = new ldBar("#myItem1");
+            /* ldBar stored in the element */
+            var bar2 = document.getElementById('myItem1').ldBar;
+
+            bar1.set(60);
+
+            document.getElementById("Kronk").innerHTML = "";
+        }
+
+        //Oh, I can feel it.
+        function loveMeter3() {
+            /* construct manually */
+            var bar1 = new ldBar("#myItem1");
+            /* ldBar stored in the element */
+            var bar2 = document.getElementById('myItem1').ldBar;
+
+            bar1.set(90);
+
+            //for all those Kronk fans out there
+            document.getElementById("Kronk").innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/ehBoiDqisjQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        }
+
+        //reset button
+        function resetMeter() {
+            /* construct manually */
+            var bar1 = new ldBar("#myItem1");
+            /* ldBar stored in the element */
+            var bar2 = document.getElementById('myItem1').ldBar;
+
+            bar1.set(0);
+
+            document.getElementById("Kronk").innerHTML = "";
+        }
+    </script>
+
+    <p id="Kronk"></p>
+
+    <!--some CSS styling for the loading bar, but put inside the div tag, rather than a CSS file-->
+    <style type="text/css">
+        .ldBar path.mainline {
+            stroke-width: 6;
+            stroke: rgb(139, 4, 4);
+            /*I changed the style to red. To change the color, 
+            you hover your cursor over the color box, and pick manually.
+            you can also change the opacity, which is the first bar to the 
+            right when you hover over the same area.*/
+            stroke-linecap: round;
+        }
+
+        /*this is the faint bar that shows "underneath" the current progress 
+        bar/stroke*/
+        .ldBar path.baseline {
+            stroke-width: 9;
+            stroke: rgba(139, 4, 4, 0.418);
+            /*you'll notice (if you hover over the color) that I made 
+            its opacity low so you could see the current progress bar*/
+            stroke-linecap: round;
+        }
+
+        /*this is the code to adjust the style of the label in the middle
+        of the progress circle*/
+        .ldBar-label {
+            color: rgb(139, 4, 4);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            /*change the font as you like*/
+            font-size: 1.5em;
+            /*used to be 2.5*/
+            font-weight: 900;
+        }
+    </style>
+
+</body>
+
+</html>
